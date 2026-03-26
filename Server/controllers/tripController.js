@@ -1,0 +1,118 @@
+const Trip = require("../models/Trip");
+
+// CREATE TRIP
+const createTrip = async (req, res) => {
+  try {
+
+    const { title, destination, startDate, endDate } = req.body;
+
+    const trip = new Trip({
+      title,
+      destination,
+      startDate,
+      endDate,
+      userId: req.user.id
+    });
+
+    await trip.save();
+
+    res.status(201).json({
+      message: "Trip created successfully",
+      trip
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// GET USER TRIPS
+const getTrips = async (req, res) => {
+  try {
+
+    const trips = await Trip.find({ userId: req.user.id });
+
+    res.json(trips);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// GET SINGLE TRIP
+const getTripById = async (req, res) => {
+  try {
+
+    const trip = await Trip.findOne({
+      _id: req.params.id,
+      userId: req.user.id
+    });
+
+    if (!trip) {
+      return res.status(404).json({ message: "Trip not found" });
+    }
+
+    res.json(trip);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// UPDATE TRIP
+const updateTrip = async (req, res) => {
+  try {
+
+    const trip = await Trip.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.id },
+      req.body,
+      { new: true }
+    );
+
+    if (!trip) {
+      return res.status(404).json({ message: "Trip not found" });
+    }
+
+    res.json({
+      message: "Trip updated successfully",
+      trip
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// DELETE TRIP
+const deleteTrip = async (req, res) => {
+  try {
+
+    const trip = await Trip.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.user.id
+    });
+
+    if (!trip) {
+      return res.status(404).json({ message: "Trip not found" });
+    }
+
+    res.json({
+      message: "Trip deleted successfully"
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  createTrip,
+  getTrips,
+  getTripById,
+  updateTrip,
+  deleteTrip
+};
