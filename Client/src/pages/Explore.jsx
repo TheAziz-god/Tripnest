@@ -1,125 +1,80 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "../services/api";
 
 function Explore() {
 
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
-
-    const fetchTrips = async () => {
-
-      try {
-
-        const res = await axios.get("http://localhost:5000/api/trips");
-
-        setTrips(res.data);
-
-      } catch (error) {
-
-        console.error("Error fetching trips:", error);
-
-      }
-
-    };
-
     fetchTrips();
-
   }, []);
+
+  const fetchTrips = async () => {
+    try {
+
+      const res = await API.get("/trips");
+
+      setTrips(res.data);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
 
-    <section
-      style={{
-        padding: "80px 60px",
-        background: "linear-gradient(135deg,#f1f5f9,#e0f2fe)",
-        minHeight: "100vh"
-      }}
-    >
+    <section style={{ padding: "60px" }}>
 
-      <h1
-        style={{
-          fontSize: "42px",
-          marginBottom: "50px",
-          textAlign: "center"
-        }}
-      >
-        Explore Trips
+      <h1 style={{ fontSize: "40px", marginBottom: "40px" }}>
+        Explore Destinations
       </h1>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-          gap: "35px"
+          gridTemplateColumns: "repeat(auto-fill, minmax(250px,1fr))",
+          gap: "30px"
         }}
       >
 
-        {trips.map((trip)=> (
+        {trips.map((trip) => (
 
-          <Link
+          <div
             key={trip._id}
-            to={`/trip/${trip._id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
+            style={{
+              borderRadius: "15px",
+              overflow: "hidden",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+              background: "white"
+            }}
           >
 
-            <div
+            <img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+              alt="destination"
               style={{
-                borderRadius: "14px",
-                overflow: "hidden",
-                background: "white",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
-                transition: "all 0.3s ease",
-                cursor: "pointer"
+                width: "100%",
+                height: "180px",
+                objectFit: "cover"
               }}
-            >
+            />
 
-              <img
-                src={trip.image}
-                style={{
-                  width: "100%",
-                  height: "220px",
-                  objectFit: "cover"
-                }}
-              />
+            <div style={{ padding: "20px" }}>
 
-              <div style={{ padding: "20px" }}>
+              <h3>{trip.title}</h3>
 
-                <h3>{trip.title}</h3>
+              <p style={{ color: "#777" }}>
+                {trip.destination}
+              </p>
 
-                <p style={{ color: "#666", fontSize: "14px" }}>
-                  {trip.location}
-                </p>
-
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: "15px"
-                  }}
-                >
-
-                  <span
-                    style={{
-                      fontWeight: "bold",
-                      color: "#2563eb"
-                    }}
-                  >
-                    ${trip.price}
-                  </span>
-
-                  <span>
-                    ⭐ {trip.rating}
-                  </span>
-
-                </div>
-
-              </div>
+              <p style={{ fontSize: "14px", marginTop: "10px" }}>
+                {new Date(trip.startDate).toDateString()} -
+                {new Date(trip.endDate).toDateString()}
+              </p>
 
             </div>
 
-          </Link>
+          </div>
 
         ))}
 
@@ -128,7 +83,6 @@ function Explore() {
     </section>
 
   );
-
 }
 
 export default Explore;

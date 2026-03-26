@@ -1,3 +1,46 @@
+// // const express = require("express");
+// // const router = express.Router();
+
+// // const {
+// //   createTrip,
+// //   getTrips,
+// //   getTripById,
+// //   updateTrip,
+// //   deleteTrip
+// // } = require("../controllers/tripController");
+
+// // const authMiddleware = require("../middleware/authMiddleware");
+
+
+// // // PUBLIC ROUTES (anyone can view trips)
+// // router.get("/", getTrips);
+// // router.get("/:id", getTripById);
+
+
+// // // PROTECTED ROUTES (admin only)
+// // router.post("/", authMiddleware, createTrip);
+// // router.put("/:id", authMiddleware, updateTrip);
+// // router.delete("/:id", authMiddleware, deleteTrip);
+
+// // module.exports = router;
+// const express = require("express");
+// const router = express.Router();
+
+// const {
+//   createTrip,
+//   getTrips,
+//   getTripById,
+//   updateTrip,
+//   deleteTrip
+// } = require("../controllers/tripController");
+
+// router.post("/", createTrip);
+// router.get("/", getTrips);
+// router.get("/:id", getTripById);
+// router.put("/:id", updateTrip);
+// router.delete("/:id", deleteTrip);
+
+// module.exports = router;
 const express = require("express");
 const router = express.Router();
 
@@ -9,17 +52,21 @@ const {
   deleteTrip
 } = require("../controllers/tripController");
 
-const authMiddleware = require("../middleware/authMiddleware");
 
+// CREATE
+router.post("/", createTrip);
 
-// PUBLIC ROUTES (anyone can view trips)
+// GET ALL
 router.get("/", getTrips);
+
+// GET ONE
 router.get("/:id", getTripById);
 
+// UPDATE
+router.put("/:id", updateTrip);
 
-// PROTECTED ROUTES (admin only)
-router.post("/", authMiddleware, createTrip);
-router.put("/:id", authMiddleware, updateTrip);
-router.delete("/:id", authMiddleware, deleteTrip);
+// DELETE
+router.delete("/:id", deleteTrip);
+
 
 module.exports = router;
