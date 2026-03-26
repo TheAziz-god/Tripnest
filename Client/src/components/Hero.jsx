@@ -1,72 +1,120 @@
+import heroImage from "../assets/bali.jpg";
+
 function Hero() {
   return (
     <section
       style={{
-        textAlign: "center",
-        padding: "120px 20px",
-        background: "linear-gradient(135deg,#e0f2fe,#f8fafc)"
+        height: "85vh",
+        backgroundImage: `url(${heroImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
       }}
     >
-      <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>
-        Plan Your Perfect Family Trip
-      </h1>
 
-      <p style={{ fontSize: "20px", color: "#555", marginBottom: "40px" }}>
-        Discover amazing destinations around the world
-      </p>
+      {/* Dark overlay */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0,0,0,0.45)"
+        }}
+      />
 
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          flexWrap: "wrap"
+          position: "relative",
+          textAlign: "center",
+          color: "white",
+          maxWidth: "800px"
         }}
       >
-        <input
-          type="text"
-          placeholder="Where are you going?"
-          style={{
-            padding: "12px 16px",
-            borderRadius: "8px",
-            border: "1px solid #ddd",
-            width: "220px"
-          }}
-        />
 
-        <input
-          type="date"
+        <h1
           style={{
-            padding: "12px",
-            borderRadius: "8px",
-            border: "1px solid #ddd"
-          }}
-        />
-
-        <input
-          type="number"
-          placeholder="Guests"
-          style={{
-            padding: "12px",
-            borderRadius: "8px",
-            border: "1px solid #ddd",
-            width: "120px"
-          }}
-        />
-
-        <button
-          style={{
-            padding: "12px 20px",
-            borderRadius: "8px",
-            border: "none",
-            background: "#2563eb",
-            color: "white",
-            cursor: "pointer"
+            fontSize: "52px",
+            marginBottom: "20px"
           }}
         >
-          Search
-        </button>
+          Discover Your Next Adventure
+        </h1>
+
+        <p
+          style={{
+            fontSize: "20px",
+            marginBottom: "40px"
+          }}
+        >
+          Plan unforgettable trips with your family and friends
+        </p>
+
+        {/* Search Bar */}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            background: "white",
+            padding: "12px",
+            borderRadius: "10px",
+            boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
+          }}
+        >
+
+          <input
+            type="text"
+            placeholder="Where are you going?"
+            style={{
+              padding: "10px",
+              border: "none",
+              outline: "none"
+            }}
+          />
+
+          <input
+            type="date"
+            style={{
+              padding: "10px",
+              border: "none",
+              outline: "none"
+            }}
+          />
+
+          <input
+            type="number"
+            placeholder="Guests"
+            style={{
+              padding: "10px",
+              border: "none",
+              outline: "none",
+              width: "80px"
+            }}
+          />
+
+          <button
+            style={{
+              padding: "10px 18px",
+              border: "none",
+              background: "#2563eb",
+              color: "white",
+              borderRadius: "6px",
+              cursor: "pointer"
+            }}
+          >
+            Search
+          </button>
+
+        </div>
+
       </div>
+
     </section>
   );
 }
