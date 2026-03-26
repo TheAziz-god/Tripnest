@@ -6,10 +6,10 @@ function Explore() {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
-    fetchTrips();
+    loadTrips();
   }, []);
 
-  const fetchTrips = async () => {
+  const loadTrips = async () => {
     try {
 
       const res = await API.get("/trips");
@@ -23,7 +23,7 @@ function Explore() {
 
   return (
 
-    <section style={{ padding: "60px" }}>
+    <div style={{ padding: "60px" }}>
 
       <h1 style={{ fontSize: "40px", marginBottom: "40px" }}>
         Explore Destinations
@@ -32,7 +32,7 @@ function Explore() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(250px,1fr))",
+          gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))",
           gap: "30px"
         }}
       >
@@ -42,19 +42,20 @@ function Explore() {
           <div
             key={trip._id}
             style={{
-              borderRadius: "15px",
+              borderRadius: "16px",
               overflow: "hidden",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-              background: "white"
+              background: "white",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+              transition: "0.3s"
             }}
           >
 
             <img
-              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-              alt="destination"
+              src={trip.image}
+              alt={trip.destination}
               style={{
                 width: "100%",
-                height: "180px",
+                height: "200px",
                 objectFit: "cover"
               }}
             />
@@ -67,9 +68,12 @@ function Explore() {
                 {trip.destination}
               </p>
 
-              <p style={{ fontSize: "14px", marginTop: "10px" }}>
-                {new Date(trip.startDate).toDateString()} -
-                {new Date(trip.endDate).toDateString()}
+              <p style={{ fontWeight: "bold" }}>
+                ${trip.price}
+              </p>
+
+              <p style={{ fontSize: "14px", color: "#999" }}>
+                ⭐ {trip.rating}
               </p>
 
             </div>
@@ -80,7 +84,7 @@ function Explore() {
 
       </div>
 
-    </section>
+    </div>
 
   );
 }
