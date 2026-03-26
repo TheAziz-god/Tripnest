@@ -1,6 +1,7 @@
 const Trip = require("../models/Trip");
 
-// CREATE TRIP
+
+// CREATE TRIP (protected)
 const createTrip = async (req, res) => {
   try {
 
@@ -27,11 +28,12 @@ const createTrip = async (req, res) => {
 };
 
 
-// GET USER TRIPS
+
+// GET ALL TRIPS (public)
 const getTrips = async (req, res) => {
   try {
 
-    const trips = await Trip.find({ userId: req.user.id });
+    const trips = await Trip.find();
 
     res.json(trips);
 
@@ -41,14 +43,12 @@ const getTrips = async (req, res) => {
 };
 
 
-// GET SINGLE TRIP
+
+// GET SINGLE TRIP (public)
 const getTripById = async (req, res) => {
   try {
 
-    const trip = await Trip.findOne({
-      _id: req.params.id,
-      userId: req.user.id
-    });
+    const trip = await Trip.findById(req.params.id);
 
     if (!trip) {
       return res.status(404).json({ message: "Trip not found" });
@@ -62,7 +62,8 @@ const getTripById = async (req, res) => {
 };
 
 
-// UPDATE TRIP
+
+// UPDATE TRIP (protected)
 const updateTrip = async (req, res) => {
   try {
 
@@ -87,7 +88,8 @@ const updateTrip = async (req, res) => {
 };
 
 
-// DELETE TRIP
+
+// DELETE TRIP (protected)
 const deleteTrip = async (req, res) => {
   try {
 
@@ -108,6 +110,7 @@ const deleteTrip = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 module.exports = {
   createTrip,

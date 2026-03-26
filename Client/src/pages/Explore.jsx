@@ -1,46 +1,32 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import bali from "../assets/bali.jpg";
-import paris from "../assets/paris.jpg";
-import maldives from "../assets/maldives.jpg";
-import dubai from "../assets/dubai.jpg";
+import axios from "axios";
 
 function Explore() {
 
-  const trips = [
-    {
-      id: "1",
-      title: "Bali Beach Resort",
-      location: "Bali, Indonesia",
-      price: "$1200",
-      rating: "4.8",
-      image: bali
-    },
-    {
-      id: "2",
-      title: "Paris Romantic Escape",
-      location: "Paris, France",
-      price: "$1800",
-      rating: "4.7",
-      image: paris
-    },
-    {
-      id: "3",
-      title: "Maldives Luxury Retreat",
-      location: "Maldives",
-      price: "$2500",
-      rating: "4.9",
-      image: maldives
-    },
-    {
-      id: "4",
-      title: "Dubai City Adventure",
-      location: "Dubai, UAE",
-      price: "$1500",
-      rating: "4.6",
-      image: dubai
-    }
-  ];
+  const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+
+    const fetchTrips = async () => {
+
+      try {
+
+        const res = await axios.get("http://localhost:5000/api/trips");
+
+        setTrips(res.data);
+
+      } catch (error) {
+
+        console.error("Error fetching trips:", error);
+
+      }
+
+    };
+
+    fetchTrips();
+
+  }, []);
 
   return (
 
@@ -73,8 +59,8 @@ function Explore() {
         {trips.map((trip)=> (
 
           <Link
-            key={trip.id}
-            to={`/trip/${trip.id}`}
+            key={trip._id}
+            to={`/trip/${trip._id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
 
@@ -120,7 +106,7 @@ function Explore() {
                       color: "#2563eb"
                     }}
                   >
-                    {trip.price}
+                    ${trip.price}
                   </span>
 
                   <span>
