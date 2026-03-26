@@ -1,29 +1,60 @@
+import { useEffect, useRef } from "react";
 import heroImage from "../assets/bali.jpg";
 
 function Hero() {
+
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+
+    const handleMouseMove = (e) => {
+
+      if (!bgRef.current) return;
+
+      const x = (window.innerWidth / 2 - e.clientX) / 40;
+      const y = (window.innerHeight / 2 - e.clientY) / 40;
+
+      bgRef.current.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+  }, []);
+
   return (
+
     <section
       style={{
-        height: "85vh",
-        backgroundImage: `url(${heroImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        minHeight: "90vh",
         position: "relative",
+        overflow: "hidden",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        padding: "40px 20px"
       }}
     >
 
-      {/* Dark overlay */}
+      <div
+        ref={bgRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "transform 0.3s ease-out"
+        }}
+      />
+
       <div
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background: "rgba(0,0,0,0.45)"
+          inset: 0,
+          background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.4))"
         }}
       />
 
@@ -32,13 +63,14 @@ function Hero() {
           position: "relative",
           textAlign: "center",
           color: "white",
-          maxWidth: "800px"
+          maxWidth: "900px",
+          width: "100%"
         }}
       >
 
         <h1
           style={{
-            fontSize: "52px",
+            fontSize: "clamp(32px,6vw,56px)",
             marginBottom: "20px"
           }}
         >
@@ -47,64 +79,64 @@ function Hero() {
 
         <p
           style={{
-            fontSize: "20px",
+            fontSize: "clamp(16px,2vw,20px)",
             marginBottom: "40px"
           }}
         >
-          Plan unforgettable trips with your family and friends
+          Smart travel planning for families and explorers
         </p>
 
-        {/* Search Bar */}
         <div
           style={{
             display: "flex",
             gap: "10px",
             justifyContent: "center",
             flexWrap: "wrap",
-            background: "white",
-            padding: "12px",
-            borderRadius: "10px",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
+            padding: "15px",
+            borderRadius: "12px",
+            backdropFilter: "blur(18px)",
+            background: "rgba(255,255,255,0.2)",
+            border: "1px solid rgba(255,255,255,0.3)"
           }}
         >
 
           <input
-            type="text"
             placeholder="Where are you going?"
             style={{
-              padding: "10px",
+              padding: "12px",
               border: "none",
-              outline: "none"
+              borderRadius: "6px",
+              flex: "1",
+              minWidth: "180px"
             }}
           />
 
           <input
             type="date"
             style={{
-              padding: "10px",
+              padding: "12px",
               border: "none",
-              outline: "none"
+              borderRadius: "6px"
             }}
           />
 
           <input
-            type="number"
             placeholder="Guests"
             style={{
-              padding: "10px",
+              padding: "12px",
               border: "none",
-              outline: "none",
-              width: "80px"
+              borderRadius: "6px",
+              width: "90px"
             }}
           />
 
           <button
             style={{
-              padding: "10px 18px",
-              border: "none",
+              padding: "12px 20px",
               background: "#2563eb",
-              color: "white",
+              border: "none",
               borderRadius: "6px",
+              color: "white",
               cursor: "pointer"
             }}
           >
@@ -115,8 +147,30 @@ function Hero() {
 
       </div>
 
+      <div
+        style={{
+          position: "absolute",
+          bottom: "30px",
+          color: "white",
+          fontSize: "14px",
+          opacity: 0.8,
+          animation: "bounce 2s infinite"
+        }}
+      >
+        ↓ Scroll to explore
+      </div>
+
+      <style>{`
+        @keyframes bounce {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(10px); }
+        }
+      `}</style>
+
     </section>
+
   );
+
 }
 
 export default Hero;

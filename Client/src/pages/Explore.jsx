@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import bali from "../assets/bali.jpg";
 import paris from "../assets/paris.jpg";
 import maldives from "../assets/maldives.jpg";
@@ -7,6 +9,7 @@ function Explore() {
 
   const trips = [
     {
+      id: "1",
       title: "Bali Beach Resort",
       location: "Bali, Indonesia",
       price: "$1200",
@@ -14,6 +17,7 @@ function Explore() {
       image: bali
     },
     {
+      id: "2",
       title: "Paris Romantic Escape",
       location: "Paris, France",
       price: "$1800",
@@ -21,6 +25,7 @@ function Explore() {
       image: paris
     },
     {
+      id: "3",
       title: "Maldives Luxury Retreat",
       location: "Maldives",
       price: "$2500",
@@ -28,6 +33,7 @@ function Explore() {
       image: maldives
     },
     {
+      id: "4",
       title: "Dubai City Adventure",
       location: "Dubai, UAE",
       price: "$1500",
@@ -37,9 +43,22 @@ function Explore() {
   ];
 
   return (
-    <section style={{ padding: "80px 60px" }}>
 
-      <h1 style={{ fontSize: "36px", marginBottom: "40px" }}>
+    <section
+      style={{
+        padding: "80px 60px",
+        background: "linear-gradient(135deg,#f1f5f9,#e0f2fe)",
+        minHeight: "100vh"
+      }}
+    >
+
+      <h1
+        style={{
+          fontSize: "42px",
+          marginBottom: "50px",
+          textAlign: "center"
+        }}
+      >
         Explore Trips
       </h1>
 
@@ -47,70 +66,83 @@ function Explore() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-          gap: "30px"
+          gap: "35px"
         }}
       >
 
-        {trips.map((trip, index) => (
+        {trips.map((trip)=> (
 
-          <div
-            key={index}
-            style={{
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
-              background: "white",
-              cursor: "pointer"
-            }}
+          <Link
+            key={trip.id}
+            to={`/trip/${trip.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
 
-            <img
-              src={trip.image}
+            <div
               style={{
-                width: "100%",
-                height: "200px",
-                objectFit: "cover"
+                borderRadius: "14px",
+                overflow: "hidden",
+                background: "white",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                transition: "all 0.3s ease",
+                cursor: "pointer"
               }}
-            />
+            >
 
-            <div style={{ padding: "18px" }}>
-
-              <h3 style={{ marginBottom: "6px" }}>
-                {trip.title}
-              </h3>
-
-              <p style={{ color: "#666", fontSize: "14px" }}>
-                {trip.location}
-              </p>
-
-              <div
+              <img
+                src={trip.image}
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: "12px"
+                  width: "100%",
+                  height: "220px",
+                  objectFit: "cover"
                 }}
-              >
+              />
 
-                <span style={{ fontWeight: "bold", color: "#2563eb" }}>
-                  {trip.price}
-                </span>
+              <div style={{ padding: "20px" }}>
 
-                <span>
-                  ⭐ {trip.rating}
-                </span>
+                <h3>{trip.title}</h3>
+
+                <p style={{ color: "#666", fontSize: "14px" }}>
+                  {trip.location}
+                </p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "15px"
+                  }}
+                >
+
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      color: "#2563eb"
+                    }}
+                  >
+                    {trip.price}
+                  </span>
+
+                  <span>
+                    ⭐ {trip.rating}
+                  </span>
+
+                </div>
 
               </div>
 
             </div>
 
-          </div>
+          </Link>
 
         ))}
 
       </div>
 
     </section>
+
   );
+
 }
 
 export default Explore;

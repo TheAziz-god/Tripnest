@@ -4,19 +4,25 @@ function Navbar() {
   return (
     <nav
       style={{
+        position: "fixed",
+        top: 0,
+        width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        padding: "20px 60px",
-        background: "white",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
+        alignItems: "center",
+        padding: "18px 60px",
+        backdropFilter: "blur(12px)",
+        background: "rgba(255,255,255,0.2)",
+        borderBottom: "1px solid rgba(255,255,255,0.3)",
+        zIndex: 1000
       }}
     >
-      <h2 style={{ color: "#2563eb" }}>TripNest</h2>
+      <h2 style={{ color: "white", fontWeight: "600" }}>TripNest</h2>
 
-      <div style={{ display: "flex", gap: "25px" }}>
-        <Link to="/">Home</Link>
-        <Link to="/explore">Explore</Link>
-        <a href="#">Login</a>
+      <div style={{ display: "flex", gap: "30px" }}>
+        <Link style={{ color: "white", textDecoration: "none" }} to="/">Home</Link>
+        <Link style={{ color: "white", textDecoration: "none" }} to="/explore">Explore</Link>
+        <Link style={{ color: "white", textDecoration: "none" }} to="#">Login</Link>
       </div>
     </nav>
   );
